@@ -51,6 +51,12 @@ Expected Result: id equals id sent in request
 Actual Result: id equals id sent in request.
 Status: Fail
 
+4.3- GET /api/v1/Authors/{id}.
+Test Case: check returned author name.
+Expected Result: name conforms with author id.
+Actual Result: name conforms with author id.
+Status: Pass
+
 *****************************************************************************************************
 
 5.1- PUT /api/v1/Authors/{id}.
