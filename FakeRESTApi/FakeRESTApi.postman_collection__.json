@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "ce3c390a-9259-451e-aaeb-27f5b71ad6c9",
+		"_postman_id": "fe709370-dfe0-4505-84a2-807c9f24172d",
 		"name": "FakeRESTApi",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21546319"
 	},
 	"item": [
@@ -34,7 +34,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{URL}}/api/v1/Authors"
+				"url": {
+					"raw": "{{URL}}/api/v1/Authors",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authors"
+					]
+				}
 			},
 			"response": []
 		},
@@ -83,7 +93,16 @@
 						}
 					}
 				},
-				"url": "{{URL}}api/v1/Authors"
+				"url": {
+					"raw": "{{URL}}api/v1/Authors",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors"
+					]
+				}
 			},
 			"response": []
 		},
@@ -107,10 +126,7 @@
 							"                pm.expect(jsonData[i]).to.have.property('firstName');\r",
 							"                pm.expect(jsonData[i]).to.have.property('lastName');\r",
 							"      }\r",
-							"    });\r",
-							"\r",
-							"\r",
-							"    "
+							"    });"
 						],
 						"type": "text/javascript"
 					}
@@ -119,7 +135,61 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "{{URL}}api/v1/Authors/authors/books/{{idBook}}"
+				"url": {
+					"raw": "{{URL}}api/v1/Authors/authors/books/{{IdBook}}",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors",
+						"authors",
+						"books",
+						"{{IdBook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAuthor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"author returned successfully successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check author id & idBook\", function () {\r",
+							"     let id = parseInt(pm.collectionVariables.get(\"authorID\"));\r",
+							"     let idBook = parseInt(pm.collectionVariables.get(\"idBook\"));\r",
+							"     pm.expect(jsonData.id).to.eql(id);\r",
+							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/Authors/{{authorID}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authors",
+						"{{authorID}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -139,9 +209,10 @@
 							"\r",
 							"pm.test(\"check update author id & idBook\", function () {\r",
 							"    let id = parseInt(pm.collectionVariables.get(\"actAuthorID\"));\r",
+							"   // console.log(id);\r",
 							"    let idBook = parseInt(pm.collectionVariables.get(\"actAuthorBookID\"));\r",
-							"    pm.expect(jsonData.id).to.eql(1);\r",
-							"    pm.expect(jsonData.idBook).to.eql(1);\r",
+							"    pm.expect(jsonData.id).to.eql(100);\r",
+							"    pm.expect(jsonData.idBook).to.eql(100);\r",
 							"});\r",
 							"\r",
 							"\r",
@@ -168,45 +239,17 @@
 						}
 					}
 				},
-				"url": "{{URL}}api/v1/Authors/{{authorID}}"
-			},
-			"response": []
-		},
-		{
-			"name": "GetAuthor",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = pm.response.json();\r",
-							" \r",
-							"pm.test(\"author returned successfully successfully\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"check author id & idBook\", function () {\r",
-							"    let id = parseInt(pm.collectionVariables.get(\"authorID\"));\r",
-							" let idBook = parseInt(pm.collectionVariables.get(\"idBook\"));\r",
-							"     pm.expect(jsonData.id).to.eql(id);\r",
-							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
-							"\r",
-							"});\r",
-							"\r",
-							" pm.test(\"check returned author name\", function () {\r",
-							"          pm.expect(jsonData.firstName).to.eql(\"First Name 1\");\r",
-							"         pm.expect(jsonData.lastName).to.eql(\"Last Name 1\");\r",
-							"\r",
-							"    });"
-						],
-						"type": "text/javascript"
-					}
+				"url": {
+					"raw": "{{URL}}api/v1/Authors/{{authorID}}",
+					"host": [
+						"{{URL}}api"
+					],
+					"path": [
+						"v1",
+						"Authors",
+						"{{authorID}}"
+					]
 				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{URL}}/api/v1/Authors/{{authorID}}"
 			},
 			"response": []
 		},
@@ -230,7 +273,18 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "{{URL}}/api/v1/Authors/{{id}}"
+				"url": {
+					"raw": "{{URL}}/api/v1/Authors/{{id}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authors",
+						"{{id}}"
+					]
+				}
 			},
 			"response": []
 		}
@@ -259,36 +313,36 @@
 	"variable": [
 		{
 			"key": "firstName",
-			"value": "",
+			"value": "Alaa",
 			"type": "string"
 		},
 		{
 			"key": "lastName",
-			"value": "",
+			"value": "Abozaid",
 			"type": "string"
 		},
 		{
-			"key": "idBook",
-			"value": "",
+			"key": "IdBook",
+			"value": "100",
 			"type": "string"
 		},
 		{
 			"key": "authorID",
-			"value": ""
+			"value": "100"
 		},
 		{
 			"key": "actAuthorID",
-			"value": "",
+			"value": "100",
 			"type": "string"
 		},
 		{
 			"key": "actAuthorBookID",
-			"value": "\n",
+			"value": "100\n",
 			"type": "string"
 		},
 		{
 			"key": "id",
-			"value": "",
+			"value": "10",
 			"type": "string"
 		}
 	]
