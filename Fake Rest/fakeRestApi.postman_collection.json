@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "294a1e6a-5fb6-476b-9291-092e7b7a86a3",
+		"name": "fakeRestApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6074949"
+	},
+	"item": [
+		{
+			"name": "Return all authors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"authors are returned successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"// pm.test(\"jsonData length is 588 \", function () {\r",
+							"//     console.log(jsonData.length);\r",
+							"//     pm.expect(jsonData.length).to.eql(604);\r",
+							"\r",
+							"// });\r",
+							"pm.test(\"check first and list authors ids\", function () {\r",
+							"    pm.expect(jsonData.at(0).id).to.eql(1);\r",
+							"    pm.expect(jsonData.at(-1).id).to.eql(jsonData.length);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"    pm.test(\"check all authors key attribute\", function () {\r",
+							"      for(var i = 0; i< jsonData.length ; i++  ){\r",
+							"                pm.expect(jsonData[i]).to.have.property('id');              \r",
+							"                 pm.expect(jsonData[i]).to.have.property('idBook');\r",
+							"                pm.expect(jsonData[i]).to.have.property('firstName');\r",
+							"                pm.expect(jsonData[i]).to.have.property('lastName');\r",
+							"      }\r",
+							"    });\r",
+							"pm.test(\"check header Transfer Encoding\",function(){\r",
+							"      pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"   pm.expect(pm.response.headers.get('Transfer-Encoding')).to.eql('chunked');\r",
+							"\r",
+							"});\r",
+							"pm.test(\"check the rest of headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Authors",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new author",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"author created successfully successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check created author id & idBook\", function () {\r",
+							"     let id = parseInt(pm.collectionVariables.get(\"actAuthorID\"));\r",
+							"     let idBook = parseInt(pm.collectionVariables.get(\"actAuthorBookID\"));\r",
+							"     pm.expect(jsonData.id).to.eql(id);\r",
+							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"    pm.test(\"check created author name\", function () {\r",
+							"           let first = pm.collectionVariables.get(\"firstName\");\r",
+							"          let last = pm.collectionVariables.get(\"lastName\");\r",
+							"          \r",
+							"          pm.expect(jsonData.firstName).to.eql(first);\r",
+							"         pm.expect(jsonData.lastName).to.eql(last);\r",
+							"\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"check headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{actAuthorID}},\r\n  \"idBook\": {{actAuthorBookID}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}//api/v1/Authors",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"",
+						"api",
+						"v1",
+						"Authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return specific book contributors",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"contributors returned successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"check all contributors have book id\",function(){\r",
+							"    let idBook = parseInt(pm.collectionVariables.get(\"idBook\"));\r",
+							"for(var i = 0; i< jsonData.length ; i++  ){\r",
+							"\r",
+							"                pm.expect(jsonData[i].idBook).to.eql(idBook);              \r",
+							"                 \r",
+							"      }\r",
+							"});\r",
+							" pm.test(\"check all returned contributors key attribute\", function () {\r",
+							"      for(var i = 0; i< jsonData.length ; i++  ){\r",
+							"                pm.expect(jsonData[i]).to.have.property('id');              \r",
+							"                 pm.expect(jsonData[i]).to.have.property('idBook');\r",
+							"                pm.expect(jsonData[i]).to.have.property('firstName');\r",
+							"                pm.expect(jsonData[i]).to.have.property('lastName');\r",
+							"      }\r",
+							"    });\r",
+							"    pm.test(\"check headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"         pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"   pm.expect(pm.response.headers.get('Transfer-Encoding')).to.eql('chunked');\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}//api/v1/Authors/authors/books/{{idBook}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"",
+						"api",
+						"v1",
+						"Authors",
+						"authors",
+						"books",
+						"{{idBook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return author with specific id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"author returned successfully successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check author id & idBook\", function () {\r",
+							"     let id = parseInt(pm.collectionVariables.get(\"authorID\"));\r",
+							"     let idBook = parseInt(pm.collectionVariables.get(\"idBook\"));\r",
+							"     pm.expect(jsonData.id).to.eql(id);\r",
+							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"    pm.test(\"check returned author name\", function () {\r",
+							"          pm.expect(jsonData.firstName).to.eql(\"First Name 1\");\r",
+							"         pm.expect(jsonData.lastName).to.eql(\"Last Name 1\");\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"check headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"      pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"   pm.expect(pm.response.headers.get('Transfer-Encoding')).to.eql('chunked');\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}//api/v1/Authors/{{authorID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"",
+						"api",
+						"v1",
+						"Authors",
+						"{{authorID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update author with specific id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"author updated successfully successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check updated author id & idBook\", function () {\r",
+							"     let id = parseInt(pm.collectionVariables.get(\"actAuthorID\"));\r",
+							"     let idBook = parseInt(pm.collectionVariables.get(\"actAuthorBookID\"));\r",
+							"     pm.expect(jsonData.id).to.eql(id);\r",
+							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"    pm.test(\"check updated author name\", function () {\r",
+							"           let first = pm.collectionVariables.get(\"firstName\");\r",
+							"          let last = pm.collectionVariables.get(\"lastName\");\r",
+							"          \r",
+							"          pm.expect(jsonData.firstName).to.eql(first);\r",
+							"         pm.expect(jsonData.lastName).to.eql(last);\r",
+							"\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"check headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"      pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"   pm.expect(pm.response.headers.get('Transfer-Encoding')).to.eql('chunked');\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": {{actAuthorID}},\r\n  \"idBook\": {{actAuthorBookID}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/v1/Authors/{{authorID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Authors",
+						"{{authorID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete author with specific id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"author deleted successfully successfully\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check deleted author id & idBook\", function () {\r",
+							"     let id = parseInt(pm.collectionVariables.get(\"actAuthorID\"));\r",
+							"     let idBook = parseInt(pm.collectionVariables.get(\"actAuthorBookID\"));\r",
+							"     pm.expect(jsonData.id).to.eql(id);\r",
+							"     pm.expect(jsonData.idBook).to.eql(idBook);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"    pm.test(\"check deleted author name\", function () {\r",
+							"         \r",
+							"         pm.expect(jsonData.firstName).to.eql(\"First Name 1\");\r",
+							"         pm.expect(jsonData.lastName).to.eql(\"Last Name 1\");\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"check headers\",function(){\r",
+							"      pm.response.to.have.header(\"api-supported-versions\");\r",
+							"      pm.response.to.have.header(\"Content-Type\");\r",
+							"      pm.response.to.have.header(\"Date\");\r",
+							"      pm.response.to.have.header(\"Server\");\r",
+							"      pm.expect(pm.response.headers.get('Server')).to.eql('Kestrel');\r",
+							"      pm.response.to.have.header(\"Transfer-Encoding\");\r",
+							"   pm.expect(pm.response.headers.get('Transfer-Encoding')).to.eql('chunked');\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}//api/v1/Authors/{{authorID}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"",
+						"api",
+						"v1",
+						"Authors",
+						"{{authorID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "idBook",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "authorID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "firstName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "lastName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "actAuthorID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "actAuthorBookID",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

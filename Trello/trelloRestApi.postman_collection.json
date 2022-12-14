@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ef1160ff-1bbe-428c-966f-d1d2767fcb62",
+		"_postman_id": "c7d55dde-e6ea-4b6c-870e-bd5cac42ba8f",
 		"name": "trelloRestApi",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "21546319"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6074949"
 	},
 	"item": [
 		{
@@ -48,7 +48,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{baseURL}}/boards/?name={{boardName}}&key={{key}}&token={{token}}",
+					"raw": "{{baseURL}}/boards/?key={{key}}&token={{token}}&name={{boardName}}&defaultLists=false",
 					"host": [
 						"{{baseURL}}"
 					],
@@ -58,16 +58,20 @@
 					],
 					"query": [
 						{
-							"key": "name",
-							"value": "{{boardName}}"
-						},
-						{
 							"key": "key",
 							"value": "{{key}}"
 						},
 						{
 							"key": "token",
 							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						},
+						{
+							"key": "defaultLists",
+							"value": "false"
 						}
 					]
 				}
@@ -355,7 +359,9 @@
 							"});\r",
 							"//this test case won't pass because there is no such message returned in the request.\r",
 							"// response only return {\"_value\" : null}\r",
-							"\r",
+							"pm.test(\"board is deleted successfully\", function () {\r",
+							"    pm.expect(jsonData.message).to.eql(\"board is removed successfully\");\r",
+							"});\r",
 							"pm.collectionVariables.unset(\"boardID\");\r",
 							"pm.collectionVariables.unset(\"listNames\");\r",
 							"//pm.collectionVariables.unset(\"listName\");\r",
@@ -449,29 +455,7 @@
 			"type": "string"
 		},
 		{
-			"key": "URL",
-			"value": "",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "firstBoardID",
-			"value": ""
-		},
-		{
-			"key": "lastBoardID",
-			"value": ""
-		},
-		{
-			"key": "boardID",
-			"value": ""
-		},
-		{
-			"key": "firstListID",
-			"value": ""
-		},
-		{
-			"key": "lastListID",
+			"key": "listName",
 			"value": ""
 		}
 	]

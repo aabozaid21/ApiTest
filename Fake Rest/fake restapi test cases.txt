@@ -1,0 +1,169 @@
+1.1- GET /api/v1/Authors
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+1.2- GET /api/v1/Authors
+Test Case: returned Objects inside response contain, id, idBook, firstName, lastName keys.
+Expected Result: all returned authors contains id, idBook, firstName, lastName.
+Actual Result: all returned authors contains id, idBook, firstName, lastName.
+Status: Pass
+
+1.3- GET /api/v1/Authors
+Test Case: check first and list authors ids from response.
+Expected Result: first author id equals 1 and last equal returned authors count.
+Actual Result: first author id equals 1 and last equal returned authors count.
+Status: Pass
+
+1.4- GET /api/v1/Authors
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
+---------------------------------------------------------------------------------------------------------------------------
+2.1- POST /api/v1/Authors.
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+2.2- POST /api/v1/Authors.
+Test Case: check created author id and book id. 
+Expected Result: id and book id equals id and book id sent in body.
+Actual Result: id and book id equals id and book id sent in body.
+Status: Pass
+
+2.3- POST /api/v1/Authors.
+Test Case: check created author name.
+Expected Result: name equals name sent in body.
+Actual Result: name equals name sent in body.
+Status: Pass
+
+2.4- POST /api/v1/Authors
+Test Case: send request without first name.
+Expected Result: 400 error.
+Actual Result: 400 error.
+Status: fail
+
+2.5- POST /api/v1/Authors
+Test Case: send request without last name.
+Expected Result: 400 error.
+Actual Result: 400 error.
+Status: fail
+
+2.6- POST /api/v1/Authors
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
+-----------------------------------------------------------------------------------------------------------------------------
+3.1- PUT /api/v1/Authors/{id}.
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+3.2- PUT /api/v1/Authors/{id}.
+Test Case: check updated author id and book id. 
+Expected Result: id and book id equals id and book id sent in body.
+Actual Result: id and book id equals id and book id sent in body.
+Status: Pass
+
+3.3- PUT /api/v1/Authors/{id}.
+Test Case: check updated author name.
+Expected Result: name equals name sent in body.
+Actual Result: name equals name sent in body.
+Status: Pass
+
+3.4- PUT /api/v1/Authors/{id}.
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
+-------------------------------------------------------------------------------------------------------------------------------
+4.1- GET /api/v1/Authors/authors/books/{idBook}.
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+4.2- GET /api/v1/Authors/authors/books/{idBook}.
+Test Case: check all book contributors have book id equals to the one sent in request. 
+Expected Result: all contributors has book id and equal to one sent in request.
+Actual Result: all contributors has book id and equal to one sent in request.
+Status: Pass
+
+4.3- GET /api/v1/Authors/authors/books/{idBook}.
+Test Case: check all returned contributors key attributes.
+Expected Result: contributors has all specified key attributes.
+Actual Result: contributors has all specified key attributes.
+Status: Pass
+
+4.4- GET /api/v1/Authors/authors/books/{idBook}.
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
+-------------------------------------------------------------------------------------------------------------------------------
+5.1- GET /api/v1/Authors/{id}.
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+5.2- GET /api/v1/Authors/{id}.
+Test Case: check returned author id match the id sent in request. 
+Expected Result: id equals id sent in request
+Actual Result: id equals id sent in request.
+Status: Pass
+
+5.3- GET /api/v1/Authors/{id}.
+Test Case: check returned author name.
+Expected Result: name conforms with author id.
+Actual Result: name conforms with author id.
+Status: Pass
+
+5.4- GET /api/v1/Authors/{id}.
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
+-------------------------------------------------------------------------------------------------------------------------------
+6.1- DELETE /api/v1/Authors/{id}.
+Test Case: response should be 200 OK
+Expected Result: 200 OK
+Actual Result: 200 OK
+Status: Pass
+
+6.2- DELETE /api/v1/Authors/{id}.
+Test Case: check deleted author id and book id. 
+Expected Result: id and book id equals id and book id sent in request
+Actual Result: id and book id equals id and book id sent in request
+Status: Pass
+
+
+6.3- DELETE /api/v1/Authors/{id}.
+Test Case: check deletd author name. 
+Expected Result: name equals name sent in request.
+Actual Result: name equals name sent in request.
+Status: Pass
+
+6.4- DELETE /api/v1/Authors/{id}.
+Test Case: check response body. 
+Expected Result: return {_value:null}.
+Actual Result: return {_value:null}.
+Status: Pass
+
+6.5- DELETE /api/v1/Authors/{id}.
+Test Case: check reposne body has descriptive messsage.
+Expected Result: message: author is deleted successfully.
+Actual Result: return {_value:null}.
+Status: fail
+
+
+6.6- DELETE /api/v1/Authors/{id}.
+Test Case: Check response headers.
+Expected Result: all headers are presented with right values.
+Actual Result: all headers are presented with right values.
+Status: Pass
